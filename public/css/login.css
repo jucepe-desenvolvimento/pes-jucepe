@@ -1,0 +1,464 @@
+/* Geral */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+}
+
+body {
+    display: flex;
+    margin: 0;
+}
+
+/* Login */
+
+.header-login {
+    color: white;    
+}
+
+.header-login h1 {
+    font-size: 42px;
+    line-height: 42px;
+    margin-bottom: 10px;
+}
+
+.header-login hr {
+    width: 51%;
+    margin-bottom: 10px;
+}
+
+.login-container {
+    background-color: #005B99;
+    position: relative;
+    align-items: center;
+    display: flex;
+    width: 45rem;
+    height: 25rem;
+    padding: 30px;
+    border-radius: 8px;
+    display: grid;   
+}
+
+.login-container img {
+    width: 0 auto;
+    height: auto;
+}
+
+.input-container {
+    position: absolute;
+    box-sizing: border-box;
+    border-radius: 3px;
+    height: 24.3rem;
+    width: 20rem;
+    background-color: white;
+    padding: 25px;
+    right: 0;
+    margin: 5px;
+}
+
+.input-container div {
+    padding: 5px;
+}
+
+.input-container img {
+    margin-top: 28px;
+
+}
+
+.login-container input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.rembember-container {
+    display: flex;
+    align-items: center;
+}
+
+.rembember-container input {
+    width: auto;
+    margin-right: 5px;
+}
+
+.button-pes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-pes button {
+    background-color: #005B99;
+    cursor: pointer;
+    border: none;
+    color: white;
+    padding: 5px;
+    width: 100%;
+    border-radius: 3px;
+}
+
+.button-pes a {
+    font-size: 14px;
+}
+
+.button-pes button:hover {
+    background-color: #006bb3;
+}
+
+.login-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.login-logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Main app container */
+
+.main-app {
+    /* display: flex; */
+    /* flex-direction: column; */
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Responsividade */
+
+@media (max-width: 768px) {
+    .login-container {
+        width: 100%;
+        height: 35rem;
+        padding: 20px;
+        display: block;
+    }
+
+    .input-container {
+        width: 96.5%;
+    }
+
+    .header-login h1 {
+        font-size: 32px;
+        line-height: 32px;
+    }
+
+    .header-login hr {
+        width: 70%;
+    }
+
+    .button-pes button {
+        width: 90%;
+    }
+
+    .rembember-container {
+        margin-left: 15px;
+    }
+
+}
+
+/* Dash - Menu Lateral */
+
+nav.auth-menu {
+    width: 240px;
+    height: 100vh;
+    background-color: #005B99;
+    position: fixed;
+    padding: 40px 0 40px 1%;
+    box-shadow: 3px 0 0 #006db6;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    transition: all .3s ease-in-out;
+    text-wrap: nowrap;
+}
+
+.expand-btn {
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+ul {
+    margin-top: 15px;
+    height: 100%;
+    list-style: none;
+}
+
+ul li.auth-item {
+    transition: all .2s ease-in-out;    
+}
+
+ul li.auth-item:hover {
+    background-color: #006db6;
+}
+
+ul li.auth-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Poppins';
+    padding: 20px 4%;
+    display: flex;
+    align-items: center;
+}
+
+ul li.auth-item a .auth-link-text {
+    margin-left: 10px;
+}
+
+ul li.auth-item a .auth-link-icon > i {
+    font-size: 18px;
+}
+
+/* Dash nav bar */
+
+.dashboard-nav-bar {
+    height: auto;
+    padding: 15px 35px;
+    text-align: right;
+    border-bottom: 2px solid #006db6;
+}
+
+.dashboard-nav-bar p {
+    max-width: 0 auto;
+    color: #005B99;
+}
+
+.dashboard-nav-bar p > i {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+/* Logout form */
+
+form .auth-link {
+    gap: 10px;
+}
+
+/* Dash user list */
+
+.dash-user-content-item {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    right: 2px;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dash-user-content:hover .dash-user-content-item {
+    display: block;
+}
+
+.dash-user-content-item ul, .dash-user-content-item li {
+    position: relative;
+    list-style: none;
+    display: grid;
+}
+
+.dash-user-content-item a {
+    color: #005B99;
+}
+
+.dash-user-content-item hr {
+    opacity: 20%;
+}
+
+.dash-user-content-item li {
+    padding: 10px;
+}
+
+/* Dash head */
+
+.dash-header {
+    width: 100%;
+    color: white;
+    font-size: 18px;
+    background-color: #005B99;
+    padding: 25px 20px;
+}
+
+/* Dash table */
+
+.container-table {
+    display: flex;
+    justify-content: center;
+}
+
+table {
+    border-collapse: collapse;
+    border: 2px solid #ccc;
+    letter-spacing: 1px;
+}
+
+caption {
+    caption-side: top;
+    text-align: left;
+    padding: 15px 5px;
+    font-weight: bold;
+}
+
+thead {
+    background-color: #005B99;
+    color: white;
+}
+
+thead th {
+    font-size: 14px;
+}
+
+tbody th {
+    font-size: 12px;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px 20px;
+}
+
+td:last-of-type {
+    text-align: center;
+}
+
+tbody > tr:nth-of-type(even) {
+    background-color: #e6e6e6;
+}
+
+tbody ion-icon {
+    font-size: 18px;
+}
+
+tbody button {
+    background-color: #005B99;
+    font-size: 12px;
+    border: none;
+    padding: 6px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+tbody button:hover {
+    background-color: #006bb3;
+}
+
+tbody a {
+    text-decoration: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Dash responsiva */
+
+@media (max-width: 768px) {
+    .auth-header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .dash-user {
+        float: right;
+    }
+
+    #header-title {
+        display: none;
+    }
+
+    .auth-header ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0;
+    }
+
+    .auth-header li {
+        display: block;
+        margin: 5px 0;
+    }
+
+    .dash-user-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .dash-user-content span {
+        justify-content: center;
+    }
+
+    .dash-header {
+        font-size: 16px;
+        padding: 15px 10px;
+    }
+
+    .container-table {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    caption {
+        text-align: center;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 6px 10px;
+    }
+
+    #dash-ju {
+        width: 60px;
+    }
+
+    .auth-header ion-icon {
+        font-size: 30px;
+    }
+}
+
+/* Função JS */
+
+.inactive {
+    display: none;
+}
+
+.active {
+    display: block;
+    display: flex;
+    justify-content: center;
+}
+
+/* Graphics */
+
+.content {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    padding: 30px;
+}
+
+.charts-container {
+    display: grid;
+    /* justify-content: space-around; */
+}
+
+canvas {
+    width: 50% !important;
+    height: auto !important;
+}
+
