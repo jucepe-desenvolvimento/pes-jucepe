@@ -65,7 +65,7 @@ class PesquisaSatisfacaoController extends Controller
         $sugestoes['resposta_id'] = $resposta->id_resposta;
         Sugestao::create($sugestoes);
 
-        return redirect()->route('pesquisa.create');
+        return redirect('/agradecimento'); 
         
     }
 
