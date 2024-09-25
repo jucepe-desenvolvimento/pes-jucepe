@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PesquisaEs;
+use App\Models\RespostaEsp;
+use App\Models\Respondente;
+use App\Models\Sugestao;
+use App\Models\Pesquisa;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileUpdateRequest;
 
@@ -29,45 +32,41 @@ class PesquisaSatisfacaoController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
-            'name.required' => 'O campo nome é obrigatório.',
-            'name.string' => 'O nome deve conter apenas letras.',
-            'name.min' => 'O nome deve ter no mínimo 5 caracteres.',
-            'name.max' => 'O nome deve ter no máximo 50 caracteres.',
-            'email.required' => 'O campo e-mail é obrigatório.',
-            'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
-            'phone.required' => 'O campo telefone é obrigatório.',
-            'phone.string' => 'Digite um número de telefone válido.',
-            'lgpdConsent.required' => 'Você deve consentir com a LGPD.',
-        ];
 
-        $pesquisa = $request->validate([
-            'name' => 'required|string|min:5|max:50',
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            'lgpdConsent' => 'required',
-            'anonymous',
-            'produto',
-            'orientacao',
-            'tempoResposta',
-            'ambienteFisico',
-            'duvidasEsclarecimentos',
-            'tempoAnalise',
-            'prazoEntrega',
-            'integracaoOrgaos',
-            'facilidadeUso',
-            'avaliacaoGeral',
-            'qualidadeAtendimento',
-            'textoAdicional',
-        ], $messages);
+        $espontanea = $request->except([
+            '_token',
+            'nome',
+            'email',
+            'telefone',
+            'consentimento_lgpd',
+            'respondenteAnon',
+            'sugestao',
+        ]);
 
-        try {
-            PesquisaEs::create($pesquisa);
-        } catch (\Exception $e) {
-            return redirect()->route('pesquisa.create')->withErrors('Verifique os campos preenchidos e tente novamente' . $e->getMessage());
-        }
+        $respondentes = $request->only([
+            'nome',
+            'email',
+            'telefone',
+            'consentimento_lgpd',
+            'respondenteAnon',
+        ]);
 
-        return redirect()->route('pesquisa.create')->with('mnsg', 'Obrigado por responder nossa pesquisa!');
+        $sugestoes = $request->only('sugestao');
+
+        $pesquisa = Pesquisa::find(1);
+
+        $respondente = Respondente::create($respondentes);
+
+        $espontanea['respondente_id'] = $respondente->id_respondente;
+
+        $espontanea['pesquisa_id'] = $pesquisa['id_pesquisa'];
+        $resposta = RespostaEsp::create($espontanea);
+
+        $sugestoes['resposta_id'] = $resposta->id_resposta;
+        Sugestao::create($sugestoes);
+
+        return redirect()->route('pesquisa.create');
+        
     }
 
     /**

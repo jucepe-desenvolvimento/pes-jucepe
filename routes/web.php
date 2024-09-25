@@ -3,6 +3,7 @@
 use App\Http\Controllers\PesquisaSatisfacaoController;
 use App\Http\Controllers\PesquisaServicosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RespondentesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +13,10 @@ Route::get('/', function () {
 
 Route::get('/sobre', function () { 
     return view('sobre');
+});
+
+Route::get('/agradecimento', function () {
+    return view('agradecimento');
 });
 
 // Rotas para usuários autenticados
@@ -27,6 +32,7 @@ Route::post('/', [PesquisaSatisfacaoController::class, 'store']);
 
 Route::get('/pesquisaservicos', [PesquisaServicosController::class, 'create'])->name('pesquisaservicos.create');
 Route::post('/pesquisaservicos', [PesquisaServicosController::class, 'store']);
+
 
 
 Route::middleware('auth')->group(function () {

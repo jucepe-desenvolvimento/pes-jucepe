@@ -1,68 +1,103 @@
-// document.addEventListener('DOMContentLoaded', function () {
+  // Pesquisa espontanea
 
-//     let selectView = document.getElementById('select');
-//     const graphicDiv = document.querySelector('.container-graphic');
+  document.addEventListener("DOMContentLoaded", function() {
 
-//     if(graphicDiv) {
-//         graphicDiv.classList.add('inactive');
-//     }
+  document.getElementById('lgpd-consentimento').addEventListener('change', permitirSubmitLGDP);
 
-//     selectView.onchange = () => {
+  });
 
-//         let selectedValue = selectView.value;
-//         var tableDiv = document.querySelector('.container-table');
+  function criarBotoes(botoesNotas) {
+    var divAvaliacoes = document.querySelectorAll('.pergunta');
 
-//         if(selectedValue === 'grafico') {
-//             if(graphicDiv) {
-//                 graphicDiv.classList.toggle('inactive');
-//                 graphicDiv.classList.add('active');
-//             }
-//             if(tableDiv) {
-//                 tableDiv.classList.remove('active');
-//                 tableDiv.classList.add('inactive');
-//             } 
-//         } else if(selectedValue === 'tabela') {
-//             if(tableDiv) {
-//                 tableDiv.classList.remove('inactive');
-//                 tableDiv.classList.add('active');
-//             }
-//             if(graphicDiv) {
-//                 graphicDiv.classList.remove('active');
-//                 graphicDiv.classList.add('inactive');
-//             } 
-//         }
-//     }
-// });
+    divAvaliacoes.forEach(function(div) {
 
-// const ctx = document.getElementById('myChart');
+      var inputsOcultos = div.querySelector('input[type="hidden"]');
 
-//   new Chart(ctx, {
-//     type: 'doughnut',
-//     data: {
-//       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-//       datasets: [{
-//         label: '# of Votes',
-//         data: [12, 19, 3, 5, 2, 3],
-//         borderWidth: 1
-//       }]
-//     },
-//     options: {
-//       scales: {
-//         y: {
-//           beginAtZero: true
-//         }
-//       }
-//     }
-//   });
+      if (inputsOcultos) {
+
+        for(let i = 0; i <= botoesNotas; i++) {
+          var botoesDinamicos = document.createElement('button');
+          botoesDinamicos.type = 'button';
+          botoesDinamicos.className = 'botoesAval';
+          botoesDinamicos.innerText = i;
+
+          div.appendChild(botoesDinamicos);
+
+          if( i <= 3) {
+            botoesDinamicos.style.backgroundColor = '#ff4545';
+          }else if ( i >= 4 && i < 7) {
+            botoesDinamicos.style.backgroundColor = '#ffc107';
+          } else {
+            botoesDinamicos.style.backgroundColor = '#4caf50';
+          }
+
+          botoesDinamicos.addEventListener('click', function() {
+            
+            
+
+            var botaoSelecionado = event.target;
+
+            if(botaoSelecionado.classList.contains('selecionado')) {
+              botaoSelecionado.classList.remove('selecionado');
+              inputsOcultos.value = '';
+            } else {
+
+              var divBotoes = div.querySelectorAll('button');
+            divBotoes.forEach(function(btn) {
+                btn.classList.remove('selecionado');
+            });
+
+            botaoSelecionado.classList.add('selecionado');
+            inputsOcultos.value = i;
+
+            }
+
+            permitirSubmit()
 
 
-  // Pesquisa servicos
+          });
 
-  var servicoSelecionado = document.getElementById('servicos');
 
-  servicoSelecionado.onchange = function() {
-    var textoOpcao = servicoSelecionado.options[servicoSelecionado.selectedIndex].text;
-
-    document.getElementById('titulo-servicos').innerText = `Avalie o serviço: ${textoOpcao}`;
+        }
+      }
+    });
   }
+
+  criarBotoes(10);
+
+  function permitirSubmit() {
+    
+    var botaoEnviar = document.getElementById('sub-btn');
+    var linkEnviar = document.getElementById('sub-link');
+
+    if(botaoEnviar && linkEnviar) {
+        var inputs = document.querySelectorAll('.btn-value');
+        var vazios = true;
+      
+        inputs.forEach(function(input) {
+          if(input.value !== '')
+            vazios = false;
+        });
+
+        if(vazios) {
+          botaoEnviar.disabled = true;
+          linkEnviar.classList.add('btn-deastivado');
+        } else {
+          botaoEnviar.disabled = false;
+          linkEnviar.classList.remove('btn-deastivado');
+        }
+    }
+
+  }
+
+  permitirSubmit();
+  
+  function permitirSubmitLGDP() {
+    var consentimento = document.getElementById('lgpd-consentimento');
+    var botaoEnviar = document.getElementById('sub-btn-final');
+
+    botaoEnviar.disabled = consentimento && !consentimento.checked;
+  }
+
+  permitirSubmitLGDP();
 

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\PesquisaServicos;
+use App\Models\RespostaServ;
+use App\Models\Pesquisa;
+use App\Models\Respondente;
 use App\Http\Requests\ValidacoesPesquisas;
 
 class PesquisaServicosController extends Controller
@@ -29,47 +31,39 @@ class PesquisaServicosController extends Controller
      */
     public function store(Request $request)
     {
-        $messages = [
-            'name.required' => 'O campo nome é obrigatório.',
-            'name.string' => 'O nome deve conter apenas letras.',
-            'name.min' => 'O nome deve ter no mínimo 5 caracteres.',
-            'name.max' => 'O nome deve ter no máximo 50 caracteres.',
-            'email.required' => 'O campo e-mail é obrigatório.',
-            'email.email' => 'O e-mail deve ser um endereço de e-mail válido.',
-            'phone.required' => 'O campo telefone é obrigatório.',
-            'phone.string' => 'Digite um número de telefone válido.',
-            'lgpdConsent.required' => 'Você deve consentir com a LGPD.',
-            'satisfacao.required' => 'Dê uma nota para a satisfação com o serviço.',
-            'facilidade.required' => 'Dê uma nota para a facilidade com o serviço.',
-            'expectativa.required' => 'Dê uma nota para a expectativa com o serviço.',
-            'probabilidade.required' => 'Dê uma nota para a probabilidade de recomendar o serviço.',
-            'qualidadeAtendimento.required' => 'Dê uma nota para a qualidade do atendimento.',
-            'qualidade.required' => 'Dê uma nota para a qualidade do serviço.',
-            'sugestoes.min' => 'O texto deve conter mais de 10 caracteres',
-            'sugestoes.max' => 'O texto deve ter até 500 caraceteres',
-        ];
+        $servicos = $request->except([
+            '_token',
+            'nome',
+            'email',
+            'telefone',
+            'consentimento_lgpd',
+            'respondenteAnon',
+            'sugestao',
+        ]);
 
-        $pesquisaServicos = $request->validate([
-            'name' => 'required|string|min:5|max:50',
-            'email' => 'required|email',
-            'phone' => 'required|string',
-            'lgpdConsent' => 'required',
-            'satisfacao' => 'required',
-            'facilidade' => 'required',
-            'expectativa' => 'required',
-            'probabilidade' => 'required',
-            'qualidadeAtendimento' => 'required',
-            'qualidade' => 'required',
-            'sugestoes' => 'min:10|max:500',
-        ], $messages);
+        $respondentes = $request->only([
+            'nome',
+            'email',
+            'telefone',
+            'consentimento_lgpd',
+            'respondenteAnon',
+        ]);
 
-        try {
-            PesquisaServicos::create($pesquisaServicos);
-        } catch (\Exception $e) {
-            return redirect()->route('pesquisaservicos.create')->withErrors('Verifique os campos preenchidos e tente novamente' . $e->getMessage());            
-        }
+        $sugestoes = $request->only('sugestao');
 
-        return redirect()->route('pesquisaservicos.create')->with('mnsg', 'Obrigado por responder nossa pesquisa!');
+        $pesquisa = Pesquisa::find(2);
+
+        $respondente = Respondente::create($respondentes);
+
+        $servicos['respondente_id'] = $respondente->id_respondente;
+
+        $servicos['pesquisa_id'] = $pesquisa['id_pesquisa'];
+        $resposta = RespostaServ::create($servicos);
+
+        $sugestoes['resposta_serv_id'] = $resposta->id_resposta;
+        Sugestao::create($sugestoes);
+
+        return redirect()->route('pesquisaservicos.create');
     }
 
     /**

@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PesquisaServicos extends Model
+class Pesquisa extends Model
 {
     use HasFactory;
 
-    protected $table = 'pesquisa_svcs';
+    protected $table = 'pesquisas';
+    
+    protected $primaryKey = 'id_pesquisa';
 
-    protected $guarded = ['#'];
+    public $incrementing = false;
 
 }

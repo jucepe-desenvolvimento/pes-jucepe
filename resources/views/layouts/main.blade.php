@@ -11,101 +11,112 @@
     {{-- Bootstrap --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     
     {{-- CSS Pesquisa --}}
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/pesquisaesp.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/pesquisaesp.css') }}"> --}}
 
     {{-- jQuery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    {{-- Fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     
 
 </head>
 <body>
 
-<div id="loader">
-    <img src="{{ asset('img/ju.png') }}" alt="Loading..." class="loading-img" style="width: 250px; height: auto;">
-    <div class="progress">
-        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div id="loader">
+        <img src="{{ asset('img/ju.png') }}" alt="Loading..." class="loading-img" style="width: 250px; height: auto;">
+        <div class="progress">
+            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
     </div>
-</div>
 
-<header class="header-primary">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-6">
-            <div class="logo">
-         <a href="/">
-        <img src="{{ asset('img/_branding-main.png') }}" alt="Logo">
-    </a>
-</div>
-
-            </div>
-            <div class="col-md-6">
-                <nav class="top-nav text-right d-none d-md-block">
-                    <ul class="nav">
+    <header> 
+        <div class="navbar navbar-expand-lg mb-1">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand ms-5"><img src="/img/_branding-main.png" alt="Junta Comercial do Estado de Pernambuco" style="width: 120px;"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#pes-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="pes-navbar">
+                    <ul class="navbar-nav ms-auto" style="padding: 0 !important;">
                         <li class="nav-item">
-                            <a class="nav-link" href="https://portal.jucepe.pe.gov.br/">A JUCEPE</a>
+                            <a href="https://portal.jucepe.pe.gov.br/" class="nav-link">A JUCEPE</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://portal.jucepe.pe.gov.br/sobre#!">INSTITUCIONAL</a>
+                            <a href="https://portal.jucepe.pe.gov.br/arquivos/lgpd" class="nav-link">LGPD</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://portal.jucepe.pe.gov.br/ouvidoria/sobre">OUVIDORIA</a>
+                            <a href="https://portal.jucepe.pe.gov.br/sobre#!" class="nav-link">Institucional</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://portal.jucepe.pe.gov.br/arquivos/lgpd">LGPD</a>
+                            <a href="https://portal.jucepe.pe.gov.br/ouvidoria/sobre" class="nav-link">Ouvidoria</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/sobre') }}" class="nav-link">Sobre</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/dashboard') }}" class="btn btn-outline-primary ms-2">Acesso Interno</a>
                         </li>
                     </ul>
-                </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="menu-lateral col-md-2 col-sm-2 shadow rounded-top">
+                    <div class="container">
+                        <div class="row">
+                                <ul>
+                                    <li class="side-nav-item">
+                                        <a href="#atendimento-online" class="side-nav-link"><i class="bi bi-person-workspace"></i>{{ Route::is('pesquisa.create') ? 'Atendimento Online' : 'Satisfação com o Serviço' }}</a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="#atendimento-presencial" class="side-nav-link"><i class="bi bi-geo-fill"></i>{{ Route::is('pesquisa.create') ? 'Atendimento Presencial' : 'Facilidade de Uso' }}</a>
+                                    </li>
+                                    <li class="side-nav-item">
+                                        <a href="#processos-servicos" class="side-nav-link"><i class="bi bi-person-fill-gear"></i>{{ Route::is('pesquisa.create') ? 'Processos e Serviços' : 'Expectativas' }}</a>
+                                    </li>
+                                    @if(Route::is('pesquisaservicos.create'))
+                                    <li class="side-nav-item">
+                                        <a href="#avaliacao-geral" class="side-nav-link"><i class="bi bi-award-fill"></i>Recomendação</a>
+                                    </li>
+                                    @endif
+                                    <li class="side-nav-item">
+                                        <a href="#avaliacao-geral" class="side-nav-link"><i class="bi bi-journal-check"></i>Avaliação Geral</a>
+                                    </li>
+                                    <li class="side-nav-item" id="link-dados">
+                                        <a href="#sugestoes" class="side-nav-link" id="link-identificacao"><i class="bi bi-pencil-square"></i>Sugestões e/ou Reclamações</a>
+                                    </li>
+                                    <li class="side-nav-item" id="link-dados">
+                                        <a href="#identificacao" class="side-nav-link" id="link-identificacao"><i class="bi bi-person-plus-fill"></i>Identificação</a>
+                                    </li>
+                                </ul>                
+                        </div>
+                    </div>
+            </div>
+            <div class="col-md-10 ms-auto">
+                {{-- Página da pesquisa --}}
+                <main>
+                    <div class="main-container shadow-sm border rounded overflow-auto">
+                        @yield ('content')
+                    <div>
+                </main>
+                {{-- <footer class="container text-center footer">
+                        <p>Junta Comercial do Estado de Pernambuco - © {{ date('Y') }}</p>
+                </footer> --}}
             </div>
         </div>
     </div>
-</header>
-
-<header class="header-secondary" style="background-color: #005B99; color: #003366;">
-    <div class="container">
-        <nav class="navbar navbar-expand-md navbar-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-md-start" id="navbarMenu">
-                <ul class="navbar-nav">
-                    {{-- <li class="nav-item">
-                        <a class="nav-link text-blue " href="/">INÍCIO</a>
-                    </li> --}}
-                    <li class="nav-item">
-                        <a class="nav-link text-blue " href="{{ url('/dashboard') }}">ACESSO SISTEMA INTERNO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-blue " href="/sobre">SOBRE A PESQUISA</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-blue" href="http://chamados.jucepe.pe.gov.br/helpdesk/">FALE CONOSCO</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
-        {{-- Página da pesquisa --}}
-
-        <main>
-            <div class="pesquisa-container">
-                @yield ('content')
-            <div>
-        </main>
-
-        {{-- ------------------ --}}
-
-<footer class="footer">
-    <div class="container">
-        <p>Junta Comercial do Estado de Pernambuco - © {{ date('Y') }}</p>
-    </div>
-</footer>
 
 <script>
     document.onreadystatechange = function () {
@@ -127,7 +138,6 @@
 </script>
 
 {{-- Scripts --}}
-<script src="/js/pesquisasatisf.js"></script>
 <script src="/js/funcoes.js"></script>
 
 </body>
