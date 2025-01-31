@@ -5,9 +5,10 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "8.1 || ^8.2.20",
+        "php": "8.1 || ^8.1.12 || ^8.2.20",
         "laravel/framework": "^11.9",
-        "laravel/tinker": "^2.9"
+        "laravel/tinker": "^2.9",
+        "predis/predis": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
